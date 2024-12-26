@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mobile Shop</title>
+  <link rel="stylesheet" href="index.css">
+  <style>
+    /* Importing Google font - Poppins */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #0A2558;
+      width: 100%;
+      padding: 20px;
+    }
+
+    header .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .navbar .logo {
+      color: #fff;
+      font-weight: 600;
+      font-size: 2.1rem;
+      text-decoration: none;
+    }
+
+    .navbar .logo span {
+      color: #C06B3E;
+    }
+
+    .navbar .menu-links {
+      display: flex;
+      list-style: none;
+      gap: 35px;
+    }
+
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      transition: 0.2s ease;
+    }
+
+    .navbar a:hover {
+      color: #C06B3E;
+    }
+
+    .hero-section {
+      height: 100vh;
+      background-image: url("output\ \(1\).jpg");
+      background-position: center;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+    }
+
+    .hero-section .content {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      color: black;
+    }
+
+    .hero-section .content h2 {
+      font-size: 3rem;
+      max-width: 600px;
+      line-height: 70px;
+    }
+
+    .hero-section .content p {
+      font-weight: 300;
+      max-width: 600px;
+      margin-top: 15px;
+    }
+
+    .hero-section .content button {
+      background: #fff;
+      padding: 12px 30px;
+      border: none;
+      font-size: 1rem;
+      border: 1px solid black;
+      border-radius: 6px;
+      margin-top: 38px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: 0.2s ease;
+    }
+
+    .hero-section .content button:hover {
+      color: #fff;
+      background: #C06B3E;
+    }
+
+    #close-menu-btn {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      cursor: pointer;
+      display: none;
+    }
+
+    #hamburger-btn {
+      color: #fff;
+      cursor: pointer;
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 10px;
+      }
+
+      header.show-mobile-menu::before {
+        content: "";
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: blur(5px);
+      }
+
+      .navbar .logo {
+        font-size: 1.7rem;
+      }
+
+      #hamburger-btn,
+      #close-menu-btn {
+        display: block;
+      }
+
+      .navbar .menu-links {
+        position: fixed;
+        top: 0;
+        left: -250px;
+        width: 250px;
+        height: 100vh;
+        background: #fff;
+        flex-direction: column;
+        padding: 70px 40px 0;
+        transition: left 0.2s ease;
+      }
+
+      header.show-mobile-menu .navbar .menu-links {
+        left: 0;
+      }
+
+      .navbar a {
+        color: #000;
+      }
+    }
+
+    .sidebar {
+      position: fixed;
+      height: 100%;
+      width: 240px;
+      background: #0A2558;
+      transition: all 0.5s ease;
+    }
+
+    img {
+      height: 100px;
+      width: 300px;
+    }
+
+    .sidebar.active {
+      width: 60px;
+    }
+
+    .sidebar .logo-details {
+      height: 80px;
+      display: flex;
+      align-items: center;
+    }
+
+    .sidebar .logo-details i {
+      font-size: 28px;
+      font-weight: 500;
+      color: #fff;
+      min-width: 60px;
+      text-align: center
+    }
+
+    .sidebar .logo-details .logo_name {
+      color: #fff;
+      font-size: 24px;
+      font-weight: 500;
+    }
+
+    .sidebar .nav-links {
+      margin-top: 10px;
+    }
+
+    .sidebar .nav-links li {
+      position: relative;
+      list-style: none;
+      height: 50px;
+    }
+
+    .sidebar .nav-links li a {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      transition: all 0.4s ease;
+    }
+
+    .sidebar .nav-links li a.active {
+      background: #081D45;
+    }
+
+    .sidebar .nav-links li a:hover {
+      background: #081D45;
+    }
+
+    .sidebar .nav-links li i {
+      min-width: 60px;
+      text-align: center;
+      font-size: 18px;
+      color: #fff;
+    }
+
+    .sidebar .nav-links li a .links_name {
+      color: #fff;
+      font-size: 15px;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
+    .sidebar .nav-links .log_out {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+
+    .search-container {
+      position: relative;
+      margin-left: 20px;
+    }
+
+    .search-container {
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+      
+      /* Pushes the search bar to the right */
+      gap: 10px;
+    }
+
+    .search-container input {
+      width: 250px;
+      padding: 10px 20px;
+      font-size: 0.9rem;
+      border: 2px solid #ccc;
+      border-radius: 50px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .search-container input:focus {
+      border-color: #4a7ed7;
+    }
+
+    .search-container button {
+      background-color: #0A2558;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 50px;
+      color: white;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+    .search-container button:hover {
+      background-color: #4a7ed7;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Section -->
+  <header>
+    <nav class="navbar">
+      <a class="logo" href="./img/logo.png"><span></span></a>
+      <ul class="menu-links">
+        <li>
+          <a href="invoice.html">Invoice</a>
+        </li>
+        <li>
+          <a href="cart.html">Cart</a>
+        </li>
+        <li>
+          <a href="contactUs.html">Contact us</a>
+        </li>
+        <span id="close-menu-btn" class="material-symbols-outlined">close</span>
+      </ul>
+
+      <div class="search-container">
+        <input type="text" placeholder="Search for products...">
+        <button type="submit">Search</button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="logo-details">
+      <img src="./img/logo.png" alt="">
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="admin.html">
+          <i class='bx bx-grid-alt'></i>
+          <span class="links_name">Iphone</span>
+        </a>
+      </li>
+      <li>
+        <a href="products.html">
+          <i class='bx bx-box'></i>
+          <span class="links_name">Real Me</span>
+        </a>
+      </li>
+      <li>
+        <a href="users.html">
+          <i class='bx bxs-user-account'></i>
+          <span class="links_name">Samsung</span>
+        </a>
+      </li>
+      <li>
+        <a href="analytics.html">
+          <i class='bx bx-pie-chart-alt-2'></i>
+          <span class="links_name">Vivo</span>
+        </a>
+      </li>
+      <li>
+        <a href="reports.html">
+          <i class='bx bxs-report'></i>
+          <span class="links_name">Nothing</span>
+        </a>
+      </li>
+      <li>
+        <a href="totalOrders.html">
+          <i class='bx bx-mobile'></i>
+          <span class="links_name">Xiaomi</span>
+        </a>
+      </li>
+      <li>
+        <a href="payment.html">
+          <i class='bx bx-wallet'></i>
+          <span class="links_name">One Plus</span>
+        </a>
+      </li>
+      <br><br><br><br><br>
+      <br><br><br><br><br>
+      <br>
+      <li className="log_out">
+        <a href="logout.html">
+          <i class='bx bxl-c-plus-plus'></i>
+          <span className="links_name">Log out</span>
+        </a>
+      </li>
+
+    </ul>
+  </div>
+
+  <!-- Featured Section -->
+  <!-- Mobile Products Section -->
+  <section class="products">
+    <h2>Our Latest Products</h2>
+    <div class="cards">
+      <div class="card">
+        <img src="img/apple-iphone-14-128-gb-blue-digital-o493177752-p593687859-0-202306301807.jpg" alt="iPhone 14">
+        <h3>iPhone 14</h3>
+        <p>$999</p>
+        <button>Add to Cart</button>
+      </div>
+      <div class="card">
+        <img src="img/nothing.jpg" alt="Samsung Galaxy S21">
+        <h3>Samsung Galaxy S21</h3>
+        <p>$799</p>
+        <button>Add to Cart</button>
+      </div>
+      <div class="card">
+        <img src="img/Realme-GT-2.jpg" alt="Samsung Galaxy S21">
+        <h3>Samsung Galaxy S21</h3>
+        <p>$799</p>
+        <button>Add to Cart</button>
+      </div>
+      <div class="card">
+        <img src="img/Samsung-Galaxy-S23-Ultra_-featured-image-packshot-review.jpg" alt="Samsung Galaxy S21">
+        <h3>Samsung Galaxy S21</h3>
+        <p>$799</p>
+        <button>Add to Cart</button>
+      </div>
+      <div class="card">
+        <img src="./img/SamsungA545G-1.jpg" alt="Samsung Galaxy S21">
+        <h3>Samsung Galaxy S21</h3>
+        <p>$799</p>
+        <button>Add to Cart</button>
+      </div>
+      <div class="card">
+        <img src="img/Spigen-Ultra-Hybrid-Case-OnePlus-11-Crystal-Clear-8809896741910-16032023-01.jpg" alt="OnePlus 9">
+        <h3>OnePlus 9</h3>
+        <p>$699</p>
+        <button>Add to Cart</button>
+      </div>
+      <div class="card">
+        <img src="img/vivo.jpg" alt="Samsung Galaxy S21">
+        <h3>Samsung Galaxy S21</h3>
+        <p>$799</p>
+        <button>Add to Cart</button>
+      </div>
+      <div class="card">
+        <img src="img/xiaomi.jpeg" alt="OnePlus 9">
+        <h3>OnePlus 9</h3>
+        <p>$699</p>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="footer-content">
+      <h3>Mobill Shop</h3>
+      <p>Your one-stop destination for the latest and greatest mobile phones. Shop with confidence and enjoy great deals
+        every day!</p>
+      <ul class="socials">
+        <li><a href="#"><i class='bx bxl-facebook-circle'></i></a></li>
+        <li><a href="#"><i class='bx bxl-twitter'></i></a></li>
+        <li><a href="#"><i class='bx bxl-instagram'></i></a></li>
+        <li><a href="#"><i class='bx bxl-linkedin'></i></a></li>
+      </ul>
+    </div>
+    <!-- <div class="footer-bottom">
+      <p>&copy; 2024 Mobill Shop | Designed by You</p>
+  </div> -->
+  </footer>
+</body>
+
+</html>
